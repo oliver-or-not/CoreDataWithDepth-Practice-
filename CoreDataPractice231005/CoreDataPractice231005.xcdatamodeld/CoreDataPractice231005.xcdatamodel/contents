@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="volume" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="subnotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subnote" inverseName="note" inverseEntity="Subnote"/>
+    </entity>
+    <entity name="Subnote" representedClassName="Subnote" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="volume" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Note" inverseName="subnotes" inverseEntity="Note"/>
+        <relationship name="subsubnotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subsubnote" inverseName="subnote" inverseEntity="Subsubnote"/>
+    </entity>
+    <entity name="Subsubnote" representedClassName="Subsubnote" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="volume" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="subnote" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Subnote" inverseName="subsubnotes" inverseEntity="Subnote"/>
+    </entity>
+</model>
