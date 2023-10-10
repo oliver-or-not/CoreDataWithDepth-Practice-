@@ -80,7 +80,7 @@ struct FirstDepthView_FetchedResults: View {
     }
     
     func addSubnote() {
-            let tempSubnote = NSEntityDescription.insertNewObject(forEntityName: "Subnote", into: viewContext) as! Subnote
+            let tempSubnote = Subnote(context: viewContext)
             tempSubnote.name = "Subnote \(subnoteArray.count)"
             tempSubnote.volume = Int64.random(in: 50...500)
             note.addToSubnotes(tempSubnote)
@@ -93,7 +93,9 @@ struct FirstDepthView_FetchedResults: View {
     
     func deleteSubnote(at indexSet: IndexSet) {
         for index in indexSet {
-            note.removeFromSubnotes(subnoteArray[index])
+            let tempSubnote = subnoteArray[index]
+            note.removeFromSubnotes(tempSubnote)
+            viewContext.delete(tempSubnote)
         }
         do {
             try viewContext.save()
@@ -105,6 +107,7 @@ struct FirstDepthView_FetchedResults: View {
     func resetSubnoteArray() {
         for subnote in subnoteArray {
             note.removeFromSubnotes(subnote)
+            viewContext.delete(subnote)
         }
         do {
             try viewContext.save()

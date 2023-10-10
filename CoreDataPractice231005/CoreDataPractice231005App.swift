@@ -13,10 +13,10 @@ struct CoreDataPractice231005App: App {
     
     var body: some Scene {
         WindowGroup {
-//            MainView_FetchFunction()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            MainView_FetchedResults()
+            MainView_FetchFunction()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            MainView_FetchedResults()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
