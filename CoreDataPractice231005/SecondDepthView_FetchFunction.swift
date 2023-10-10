@@ -67,7 +67,7 @@ struct SecondDepthView_FetchFunction: View {
     }
     
     func addSubsubnote() {
-            let tempSubsubnote = NSEntityDescription.insertNewObject(forEntityName: "Subsubnote", into: viewContext) as! Subsubnote
+            let tempSubsubnote = Subsubnote(context: viewContext)
             tempSubsubnote.name = "Subsubnote \(subsubnoteArray.count)"
             tempSubsubnote.volume = Int64.random(in: 50...500)
             subnote.addToSubsubnotes(tempSubsubnote)
@@ -81,7 +81,9 @@ struct SecondDepthView_FetchFunction: View {
     
     func deleteSubsubnote(at indexSet: IndexSet) {
         for index in indexSet {
-            subnote.removeFromSubsubnotes(subsubnoteArray[index])
+            let tempSubsubnote = subsubnoteArray[index]
+            subnote.removeFromSubsubnotes(tempSubsubnote)
+            viewContext.delete(tempSubsubnote)
         }
         do {
             try viewContext.save()
@@ -94,6 +96,7 @@ struct SecondDepthView_FetchFunction: View {
     func resetSubsubnoteArray() {
         for subsubnote in subsubnoteArray {
             subnote.removeFromSubsubnotes(subsubnote)
+            viewContext.delete(subsubnote)
         }
         do {
             try viewContext.save()

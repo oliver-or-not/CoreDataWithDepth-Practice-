@@ -95,6 +95,7 @@ struct MainView_FetchFunction: View {
     
     func resetNoteArray() {
         for note in noteArray {
+            print(note.id)
             viewContext.delete(note)
         }
         do {
